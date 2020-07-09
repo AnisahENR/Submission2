@@ -14,10 +14,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/spacing_xlarge"
-            android:text="@string/hint_search"
             android:layout_gravity="center"
-            android:padding="@dimen/spacing_medium">
+            android:fontFamily="@font/andika"
+            android:padding="@dimen/spacing_medium"
+            android:text="@string/hint_search"
+            android:textSize="@dimen/spacing_xlarge">
 
         </TextView>
 
@@ -52,10 +53,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/andika"
                 android:text="Anisah Denis"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                 android:textColor="@android:color/white"
-                app:fontFamily="sans-serif-medium" />
+                app:fontFamily="@font/andika"
+                android:textStyle="bold"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -64,36 +67,56 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="4.7"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
-                    android:textColor="@android:color/white"
-                    android:textStyle="bold" />
-
-                <View
-                    android:layout_width="@dimen/spacing_small"
-                    android:layout_height="0dp" />
-
                 <ImageView
                     android:layout_width="@dimen/spacing_large"
                     android:layout_height="@dimen/spacing_large"
-                    android:tint="@android:color/white"
-                    app:srcCompat="@drawable/ic_search_grey"
+                    android:tint="@color/white"
+                    app:srcCompat="@drawable/ic_business"
                     tools:ignore="VectorDrawableCompat" />
 
                 <View
                     android:layout_width="@dimen/spacing_medium"
-                    android:layout_height="1dp"
+                    android:layout_height="0dp"
                     android:layout_marginLeft="@dimen/spacing_medium"
                     android:layout_marginRight="@dimen/spacing_medium"
-                    android:background="@color/grey_20" />
+                    />
 
                 <TextView
+                    android:id="@+id/company"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Interior Design"
+                    android:fontFamily="@font/arsenal"
+                    android:text="PT ANGKASA PUTERAAA"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/grey_5" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/spacing_large"
+                    android:layout_height="@dimen/spacing_large"
+                    android:tint="@color/white"
+                    app:srcCompat="@drawable/ic_https"
+                    tools:ignore="VectorDrawableCompat" />
+
+                <View
+                    android:layout_width="@dimen/spacing_medium"
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="@dimen/spacing_medium"
+                    android:layout_marginRight="@dimen/spacing_medium" />
+
+                <TextView
+                    android:id="@+id/blog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/arsenal"
+                    android:text="https://denisiva.wordpress.com"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
                     android:textColor="@color/grey_5" />
 
@@ -109,20 +132,21 @@
                 <ImageView
                     android:layout_width="@dimen/spacing_large"
                     android:layout_height="@dimen/spacing_large"
-                    android:tint="@android:color/white"
-                    app:srcCompat="@drawable/ic_search_grey"
+                    android:tint="@color/white"
+                    app:srcCompat="@drawable/ic_location"
                     tools:ignore="VectorDrawableCompat" />
 
                 <View
                     android:layout_width="@dimen/spacing_medium"
-                    android:layout_height="1dp"
+                    android:layout_height="0dp"
                     android:layout_marginLeft="@dimen/spacing_medium"
-                    android:layout_marginRight="@dimen/spacing_medium"
-                    android:background="@color/grey_20" />
+                    android:layout_marginRight="@dimen/spacing_medium" />
 
                 <TextView
+                    android:id="@+id/location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/arsenal"
                     android:text="Jalan Soekarno - Hatta"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
                     android:textColor="@color/grey_5" />
@@ -147,7 +171,8 @@
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/peach" />
+            android:background="#f28c9c"
+            app:tabTextColor="@color/white" />
     </androidx.viewpager.widget.ViewPager>
 
 <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
