@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="people_names">
+        <item>Anderson Thomas</item>
+        <item>Adams Green</item>
+        <item>Laura Michelle</item>
+        <item>Betty L</item>
+        <item>Miller Wilson</item>
+
+        <item>Garcia Lewis</item>
+        <item>Roberts Turner</item>
+        <item>Mary Jackson</item>
+        <item>Sarah Scott</item>
+        <item>Kevin John</item>
+
+        <item>Elizabeth</item>
+        <item>Evans Collins</item>
+        <item>Roberts</item>
+        <item>Betty C</item>
+        <item>Susan Lee</item>
+    </string-array>
+</resources>
