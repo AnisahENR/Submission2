@@ -8,7 +8,7 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:background="@color/peach">
 
         <TextView
@@ -153,8 +153,14 @@
 
             </LinearLayout>
         </LinearLayout>
-
         </LinearLayout>
+
+        <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabs"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:tabTextColor="@color/white" />
+
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -167,12 +173,12 @@
         android:background="@color/grey_10"
         >
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#f28c9c"
-            app:tabTextColor="@color/white" />
+<!--        <com.google.android.material.tabs.TabLayout-->
+<!--            android:id="@+id/tabs"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="#f28c9c"-->
+<!--            app:tabTextColor="@color/white" />-->
     </androidx.viewpager.widget.ViewPager>
 
 <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
