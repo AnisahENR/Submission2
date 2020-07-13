@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.submission2.Response.UserResponse;
 import com.example.submission2.Retrofit.ApiService;
 import com.example.submission2.Retrofit.ServiceGenerator;
 import com.google.gson.Gson;
@@ -23,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     ImageButton bt_search;
     ApiService service;
-    Call<ResponseBody> CallBody;
+    Call<UserResponse> CallBody;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +46,11 @@ public class MainActivity extends AppCompatActivity {
 
         String username = "sidiqpermana";
         service = ServiceGenerator.createService(ApiService.class);
-        CallBody = service.user();
+        CallBody = service.user(username);
 
-        CallBody.enqueue(new Callback<ResponseBody>() {
+        CallBody.enqueue(new Callback<UserResponse>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
               //  CovidResponse model = response.body();
                 if (response.isSuccessful()) {
 
@@ -65,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<UserResponse> call, Throwable t) {
                 Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.d("coba gagal", t.getMessage());
             }
