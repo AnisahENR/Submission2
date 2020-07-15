@@ -15,7 +15,6 @@ import retrofit2.http.Query;
 
 public interface ApiService {
 
-    //    servicegenerator2
     @GET("users/{username}")
     Call<UsersResponse> user(@Path("username") String username);
 //    @Query("username") String username

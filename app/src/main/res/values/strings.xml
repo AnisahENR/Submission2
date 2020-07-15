@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Submission2</string>
     <string name="hint_search">Find Your Item</string>
-    <string name="title_activity_detail_user">DetailUser</string>
+    <string name="title_activity_detail_user">Detail User</string>
     <string name="tab_text_1">Follower</string>
     <string name="tab_text_2">Following</string>
 </resources>

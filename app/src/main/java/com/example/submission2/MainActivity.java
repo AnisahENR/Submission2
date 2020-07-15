@@ -178,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
 //                    Snackbar.make(parent_view, "Data Gagal Disimpan", Snackbar.LENGTH_LONG).show();
 //                    finish();
                 } else {
-                    Toast.makeText(MainActivity.this, response.message()+"  datasalah", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, response.message(), Toast.LENGTH_SHORT).show();
 ////                    showDialogTambah(nama_barang);
 
                 }

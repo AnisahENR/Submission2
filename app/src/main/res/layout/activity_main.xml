@@ -27,10 +27,9 @@
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:contentInsetStartWithNavigation="0dp"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:subtitle="welcome to MaterialX"
             app:subtitleTextAppearance="@style/Base.TextAppearance.AppCompat.Caption"
             app:subtitleTextColor="@color/colorPrimaryDark"
-            app:title="Hi, Miller Wilson" />
+            app:title="Hi, World" />
 
     </RelativeLayout>
 
@@ -64,33 +63,6 @@
                 >
 
             </androidx.appcompat.widget.SearchView>
-
-<!--            <ImageButton-->
-<!--                android:id="@+id/bt_search"-->
-<!--                android:layout_width="?attr/actionBarSize"-->
-<!--                android:layout_height="?attr/actionBarSize"-->
-<!--                android:background="@android:color/transparent"-->
-<!--                android:clickable="true"-->
-<!--                android:tint="@color/grey_60"-->
-<!--                app:srcCompat="@drawable/ic_search_grey"-->
-<!--                tools:ignore="VectorDrawableCompat"-->
-<!--                />-->
-
-<!--            <EditText-->
-<!--                android:id="@+id/et_search"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:layout_weight="1"-->
-<!--                android:background="@android:color/transparent"-->
-<!--                android:hint="@string/hint_search"-->
-<!--                android:imeOptions="actionSearch"-->
-<!--                android:maxLines="1"-->
-<!--                android:singleLine="true"-->
-<!--                android:textColor="@color/peach">-->
-
-<!--                <requestFocus />-->
-
-<!--            </EditText>-->
 
 
         </LinearLayout>

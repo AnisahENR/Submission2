@@ -1,7 +1,6 @@
 package com.example.submission2.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,30 +11,27 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.example.submission2.DetailUser;
 import com.example.submission2.Model.FollowModel;
-import com.example.submission2.Model.UsersModel;
-import com.example.submission2.People;
 import com.example.submission2.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class AdapterListUser extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class AdapterListFollow extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+
     private ArrayList<FollowModel> items = new ArrayList<>();
 
     private Context ctx;
-    private OnItemClickListener mOnItemClickListener;
+    private AdapterListFollow.OnItemClickListener mOnItemClickListener;
 
     public interface OnItemClickListener {
         void onItemClick(View view, FollowModel obj, int position);
     }
 
-    public void setOnItemClickListener(final OnItemClickListener mItemClickListener) {
+    public void setOnItemClickListener(final AdapterListFollow.OnItemClickListener mItemClickListener) {
         this.mOnItemClickListener = mItemClickListener;
     }
 
-    public AdapterListUser(Context context, ArrayList<FollowModel> items) {
+    public AdapterListFollow(Context context, ArrayList<FollowModel> items) {
         this.items = items;
         ctx = context;
     }
@@ -47,8 +43,8 @@ public class AdapterListUser extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         public OriginalViewHolder(View v) {
             super(v);
-            image = (ImageView) v.findViewById(R.id.profil_user);
-            name = (TextView) v.findViewById(R.id.nama_user);
+            image = (ImageView) v.findViewById(R.id.profil_follow);
+            name = (TextView) v.findViewById(R.id.nama_follow);
             lyt_parent = (View) v.findViewById(R.id.lyt_parent);
         }
     }
@@ -56,16 +52,16 @@ public class AdapterListUser extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder vh;
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_user, parent, false);
-        vh = new OriginalViewHolder(v);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_detail_follow, parent, false);
+        vh = new AdapterListFollow.OriginalViewHolder(v);
         return vh;
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-        if (holder instanceof OriginalViewHolder) {
-            OriginalViewHolder view = (OriginalViewHolder) holder;
+        if (holder instanceof AdapterListFollow.OriginalViewHolder) {
+            AdapterListFollow.OriginalViewHolder view = (AdapterListFollow.OriginalViewHolder) holder;
 
             final FollowModel obj = items.get(position);
             view.name.setText(obj.login);
@@ -79,11 +75,9 @@ public class AdapterListUser extends RecyclerView.Adapter<RecyclerView.ViewHolde
             view.lyt_parent.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-//                    if (mOnItemClickListener != null) {
-//                        mOnItemClickListener.onItemClick(view, items.get(position), position);
-                    Intent in = new Intent(ctx, DetailUser.class);
-                    ctx.startActivity(in);
-//                    }
+                    if (mOnItemClickListener != null) {
+                        mOnItemClickListener.onItemClick(view, items.get(position), position);
+                    }
                 }
             });
         }

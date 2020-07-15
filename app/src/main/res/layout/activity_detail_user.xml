@@ -11,16 +11,17 @@
         android:layout_height="wrap_content"
         android:background="@color/peach">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:fontFamily="@font/andika"
-            android:padding="@dimen/spacing_medium"
-            android:text="@string/hint_search"
-            android:textSize="@dimen/spacing_xlarge">
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:fontFamily="@font/andika"-->
+<!--            android:padding="@dimen/spacing_medium"-->
+<!--            android:text="@string/title_activity_detail_user"-->
+<!--            android:textSize="@dimen/spacing_xlarge">-->
 
-        </TextView>
+<!--        </TextView>-->
+        <include layout="@layout/toolbar"></include>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,7 +32,7 @@
             android:paddingRight="@dimen/spacing_mlarge">
 
         <com.mikhaellopez.circularimageview.CircularImageView
-            android:id="@+id/image"
+            android:id="@+id/avatar"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:src="@drawable/photo_female_1"
@@ -51,6 +52,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/nama_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/andika"
@@ -102,7 +104,7 @@
                     android:layout_width="@dimen/spacing_large"
                     android:layout_height="@dimen/spacing_large"
                     android:tint="@color/white"
-                    app:srcCompat="@drawable/ic_https"
+                    app:srcCompat="@drawable/ic_browser"
                     tools:ignore="VectorDrawableCompat" />
 
                 <View
@@ -180,6 +182,8 @@
 <!--            android:background="#f28c9c"-->
 <!--            app:tabTextColor="@color/white" />-->
     </androidx.viewpager.widget.ViewPager>
+
+
 
 <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
 <!--        android:id="@+id/fab"-->
