@@ -35,5 +35,7 @@ public class DetailUser extends AppCompatActivity {
 //                        .setAction("Action", null).show();
 //            }
 //        });
+
+        
     }
 }

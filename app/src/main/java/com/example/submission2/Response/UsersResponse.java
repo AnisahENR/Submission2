@@ -3,7 +3,7 @@ package com.example.submission2.Response;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Users {
+public class UsersResponse {
     @SerializedName("login")
     @Expose
     public String login;

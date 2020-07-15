@@ -7,25 +7,27 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.submission2.Adapter.AdapterListUser;
+import com.example.submission2.Model.FollowModel;
 import com.example.submission2.Model.UsersModel;
 import com.example.submission2.Response.CariResponse;
-import com.example.submission2.Response.Users;
+import com.example.submission2.Response.FollowerResponse;
+import com.example.submission2.Response.UsersResponse;
 import com.example.submission2.Retrofit.ApiService;
 import com.example.submission2.Retrofit.ServiceGenerator;
+import com.example.submission2.Retrofit.ServiceGenerator2;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -35,11 +37,12 @@ public class MainActivity extends AppCompatActivity {
     ImageButton bt_search;
     ApiService service;
     Call<CariResponse> CallBody;
+    Call<UsersResponse> CallBody2;
     EditText cari;
     SearchView cari2;
     private RecyclerView recyclerView;
     private AdapterListUser mAdapter;
-    ArrayList<UsersModel> listuser ;
+    ArrayList<FollowModel> listuser ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
 //        cari = findViewById(R.id.et_search);
         cari2 = findViewById(R.id.cari);
-        listuser = new ArrayList<UsersModel>();
+        listuser = new ArrayList<FollowModel>();
 
 //        bt_search = findViewById(R.id.bt_search);
 //        bt_search.setOnClickListener(new View.OnClickListener() {
@@ -58,12 +61,13 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 //        pencarian();
-//        recyclerView = (RecyclerView) findViewById(R.id.list_user);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        recyclerView.setHasFixedSize(true);
-//        setAdapter();
+        getuser2();
+        recyclerView = (RecyclerView) findViewById(R.id.list_user);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
+        setAdapter();
 
-        getuser();
+
     }
 
     public void pencarian(){
@@ -123,8 +127,8 @@ public class MainActivity extends AppCompatActivity {
     private void getuser() {
 
         String q = "sidiqpermana";
-        service = ServiceGenerator.createService(ApiService.class);
-        CallBody = service.cari_users(q);
+        service = ServiceGenerator2.createService(ApiService.class);
+        CallBody = service.cari("PermanAtayev");
 
         CallBody.enqueue(new Callback<CariResponse>() {
             @Override
@@ -137,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
 //                    Snackbar.make(parent_view, "Data Gagal Disimpan", Snackbar.LENGTH_LONG).show();
 //                    finish();
                 } else {
-                    Toast.makeText(MainActivity.this, response.message()+"datasalah", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, response.message(), Toast.LENGTH_SHORT).show();
 ////                    showDialogTambah(nama_barang);
 
                 }
@@ -145,6 +149,43 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<CariResponse> call, Throwable t) {
+                Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.d("coba gagal", t.getMessage());
+            }
+
+        });
+    }
+
+    private void getuser2() {
+
+        String username = "sidiqpermana";
+        service = ServiceGenerator.createService(ApiService.class);
+        Call<List<FollowerResponse>> CallBody3;
+        CallBody3 = service.following(username);
+
+        CallBody3.enqueue(new Callback<List<FollowerResponse>>() {
+            @Override
+            public void onResponse(Call<List<FollowerResponse>> call, Response<List<FollowerResponse>> response) {
+                //  CovidResponse model = response.body();
+                List<FollowerResponse> datares = response.body();
+                if (response.isSuccessful()) {
+                    for (int i = 0; i<datares.size(); i++){
+                        listuser.add(new FollowModel(datares.get(i).login,datares.get(i).avatar_url));
+                    }
+                    mAdapter.notifyDataSetChanged();
+//                    Toast.makeText(MainActivity.this, "Data Gagal Disimpan", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(MainActivity.this, new Gson().toJson(response.body()), Toast.LENGTH_LONG).show();
+//                    Snackbar.make(parent_view, "Data Gagal Disimpan", Snackbar.LENGTH_LONG).show();
+//                    finish();
+                } else {
+                    Toast.makeText(MainActivity.this, response.message()+"  datasalah", Toast.LENGTH_SHORT).show();
+////                    showDialogTambah(nama_barang);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<FollowerResponse>> call, Throwable t) {
                 Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.d("coba gagal", t.getMessage());
             }
