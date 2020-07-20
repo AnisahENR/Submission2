@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 
-        getuser("sidiqpermana");
+        getuser("PermanAtayev");
         getuser2();
         recyclerView = (RecyclerView) findViewById(R.id.list_user);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
