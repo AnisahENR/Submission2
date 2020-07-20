@@ -14,12 +14,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.submission2.DetailUser;
 import com.example.submission2.Model.FollowModel;
-import com.example.submission2.Model.UsersModel;
-import com.example.submission2.People;
 import com.example.submission2.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class AdapterListUser extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<FollowModel> items = new ArrayList<>();

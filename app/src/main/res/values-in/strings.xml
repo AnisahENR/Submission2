@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Submission2</string>
+    <string name="hint_search">Temukan Pencarian Anda</string>
+    <string name="title_activity_detail_user">Detail Pengguna</string>
+    <string name="tab_text_1">Pengikut</string>
+    <string name="tab_text_2">Mengikuti</string>
+</resources>

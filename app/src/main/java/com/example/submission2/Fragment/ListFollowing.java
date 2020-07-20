@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -32,20 +33,20 @@ public class ListFollowing extends Fragment {
     private RecyclerView recyclerView;
     private AdapterListFollow mAdapter;
     ArrayList<FollowModel> listuser;
+    private ProgressBar progressBar;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_01, container, false);
-//        View view = inflater.inflate(R.layout.fragment_01_6, container, false);
 
         View view = inflater.inflate(R.layout.fragment_follower, container, false);
 
         listuser = new ArrayList<FollowModel>();
+        progressBar = view.findViewById(R.id.progressBar);
 
-        getuser2();
+        getfollowing();
         recyclerView = (RecyclerView) view.findViewById(R.id.daftar_follow);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),3));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         recyclerView.setHasFixedSize(true);
         setAdapter();
 
@@ -56,47 +57,30 @@ public class ListFollowing extends Fragment {
         //set data and list adapter
         mAdapter = new AdapterListFollow(getContext(), listuser);
         recyclerView.setAdapter(mAdapter);
-
-        // on item list clicked
-//        mAdapter.setOnItemClickListener(new AdapterListEvent.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(View view, ModelEvent obj, int position) {
-//
-//
-////                Intent detail_event = new Intent(List_event.this,Detail_berita.class);
-////                ModelEvent listdetail = event12.get(position);
-////                detail_event.putExtra("id_event",listdetail.getId_event());
-////                detail_event.putExtra("judul_event",listdetail.getJudul_event());
-////                startActivity(detail_event);
-//                Snackbar.make(parent_view, "Item " + obj.getJudul_event() + " clicked", Snackbar.LENGTH_SHORT).show();
-//            }
-//        });
     }
 
-    private void getuser2() {
-
+    private void getfollowing() {
+        progressBar.setVisibility(View.VISIBLE);
         String username = "sidiqpermana";
+        String token = "f9c8af02e357697c2ffdd8801d3eb0e6c16526aa";
         service = ServiceGenerator.createService(ApiService.class);
         Call<List<FollowerResponse>> CallBody3;
-        CallBody3 = service.following(username);
+        CallBody3 = service.following(username,token);
 
         CallBody3.enqueue(new Callback<List<FollowerResponse>>() {
             @Override
             public void onResponse(Call<List<FollowerResponse>> call, Response<List<FollowerResponse>> response) {
-                //  CovidResponse model = response.body();
+
                 List<FollowerResponse> data = response.body();
                 if (response.isSuccessful()) {
+                    progressBar.setVisibility(View.INVISIBLE);
                     for (int i = 0; i < data.size(); i++) {
                         listuser.add(new FollowModel(data.get(i).login, data.get(i).avatar_url));
                     }
                     mAdapter.notifyDataSetChanged();
-//                    Toast.makeText(MainActivity.this, "Data Gagal Disimpan", Toast.LENGTH_SHORT).show();
-//                    Toast.makeText(MainActivity.this, new Gson().toJson(response.body()), Toast.LENGTH_LONG).show();
-//                    Snackbar.make(parent_view, "Data Gagal Disimpan", Snackbar.LENGTH_LONG).show();
-//                    finish();
                 } else {
+                    progressBar.setVisibility(View.INVISIBLE);
                     Toast.makeText(getContext(), response.message() + "  datasalah", Toast.LENGTH_SHORT).show();
-////                    showDialogTambah(nama_barang);
 
                 }
             }

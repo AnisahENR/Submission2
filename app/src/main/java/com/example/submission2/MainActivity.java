@@ -8,26 +8,24 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.submission2.Adapter.AdapterListUser;
 import com.example.submission2.Model.FollowModel;
-import com.example.submission2.Model.UsersModel;
 import com.example.submission2.Response.CariResponse;
 import com.example.submission2.Response.FollowerResponse;
 import com.example.submission2.Response.UsersResponse;
 import com.example.submission2.Retrofit.ApiService;
 import com.example.submission2.Retrofit.ServiceGenerator;
-import com.example.submission2.Retrofit.ServiceGenerator2;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -43,14 +41,15 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private AdapterListUser mAdapter;
     ArrayList<FollowModel> listuser ;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        cari = findViewById(R.id.et_search);
         cari2 = findViewById(R.id.cari);
+        progressBar = findViewById(R.id.progressBar);
         listuser = new ArrayList<FollowModel>();
 
 //        bt_search = findViewById(R.id.bt_search);
@@ -60,7 +59,8 @@ public class MainActivity extends AppCompatActivity {
 //                startActivity(new Intent(MainActivity.this, DetailUser.class));
 //            }
 //        });
-//        pencarian();
+
+        getuser("sidiqpermana");
         getuser2();
         recyclerView = (RecyclerView) findViewById(R.id.list_user);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -124,11 +124,11 @@ public class MainActivity extends AppCompatActivity {
 //        });
     }
 
-    private void getuser() {
+    private void getuser(String username) {
 
-        String q = "sidiqpermana";
-        service = ServiceGenerator2.createService(ApiService.class);
-        CallBody = service.cari("PermanAtayev");
+       // String q = "sidiqpermana";
+        service = ServiceGenerator.createService(ApiService.class);
+        CallBody = service.cari(username);
 
         CallBody.enqueue(new Callback<CariResponse>() {
             @Override
@@ -138,48 +138,50 @@ public class MainActivity extends AppCompatActivity {
 
 //                    Toast.makeText(MainActivity.this, "Data Gagal Disimpan", Toast.LENGTH_SHORT).show();
                     Toast.makeText(MainActivity.this, new Gson().toJson(response.body()), Toast.LENGTH_LONG).show();
+
 //                    Snackbar.make(parent_view, "Data Gagal Disimpan", Snackbar.LENGTH_LONG).show();
 //                    finish();
+
                 } else {
-                    Toast.makeText(MainActivity.this, response.message(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, new Gson().toJson(response.body()) +" \n"+ response.message(), Toast.LENGTH_SHORT).show();
 ////                    showDialogTambah(nama_barang);
 
                 }
+
             }
 
             @Override
             public void onFailure(Call<CariResponse> call, Throwable t) {
                 Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.d("coba gagal", t.getMessage());
             }
 
         });
     }
 
     private void getuser2() {
-
+        progressBar.setVisibility(View.VISIBLE);
         String username = "sidiqpermana";
+        String token = "f9c8af02e357697c2ffdd8801d3eb0e6c16526aa";
         service = ServiceGenerator.createService(ApiService.class);
         Call<List<FollowerResponse>> CallBody3;
-        CallBody3 = service.following(username);
+        CallBody3 = service.follower(username, token);
 
         CallBody3.enqueue(new Callback<List<FollowerResponse>>() {
             @Override
             public void onResponse(Call<List<FollowerResponse>> call, Response<List<FollowerResponse>> response) {
                 //  CovidResponse model = response.body();
                 List<FollowerResponse> datares = response.body();
+
                 if (response.isSuccessful()) {
+                    progressBar.setVisibility(View.INVISIBLE);
                     for (int i = 0; i<datares.size(); i++){
                         listuser.add(new FollowModel(datares.get(i).login,datares.get(i).avatar_url));
                     }
                     mAdapter.notifyDataSetChanged();
-//                    Toast.makeText(MainActivity.this, "Data Gagal Disimpan", Toast.LENGTH_SHORT).show();
-//                    Toast.makeText(MainActivity.this, new Gson().toJson(response.body()), Toast.LENGTH_LONG).show();
-//                    Snackbar.make(parent_view, "Data Gagal Disimpan", Snackbar.LENGTH_LONG).show();
-//                    finish();
+
                 } else {
+                    progressBar.setVisibility(View.INVISIBLE);
                     Toast.makeText(MainActivity.this, response.message(), Toast.LENGTH_SHORT).show();
-////                    showDialogTambah(nama_barang);
 
                 }
             }
@@ -187,7 +189,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<FollowerResponse>> call, Throwable t) {
                 Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.d("coba gagal", t.getMessage());
             }
 
         });

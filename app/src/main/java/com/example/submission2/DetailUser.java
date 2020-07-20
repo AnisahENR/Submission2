@@ -1,5 +1,7 @@
 package com.example.submission2;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.bumptech.glide.Glide;
@@ -24,6 +26,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +45,7 @@ public class DetailUser extends AppCompatActivity {
     Call<UsersResponse> CallBody;
     String s_nama, s_company, s_blog, s_alamat;
     CircularImageView ava;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,17 +55,8 @@ public class DetailUser extends AppCompatActivity {
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
+        progressBar = findViewById(R.id.progressBar);
         tabs.setupWithViewPager(viewPager);
-//        FloatingActionButton fab = findViewById(R.id.fab);
-
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
-//
 
         initToolbar();
         String username = "sidiqpermana";
@@ -72,10 +67,8 @@ public class DetailUser extends AppCompatActivity {
     private void initToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Detail User");
+        getSupportActionBar().setTitle(R.string.title_activity_detail_user);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        Tools.setSystemBarColor(this, R.color.grey_5);
-//        Tools.setSystemBarLight(this);
     }
 
     public void ubah_findview() {
@@ -87,10 +80,10 @@ public class DetailUser extends AppCompatActivity {
     }
 
     private void getdetail_user(String username) {
-
+        progressBar.setVisibility(View.VISIBLE);
         service = ServiceGenerator.createService(ApiService.class);
-
-        CallBody = service.user(username);
+        String token = "f9c8af02e357697c2ffdd8801d3eb0e6c16526aa";
+        CallBody = service.user(username,token);
 
         CallBody.enqueue(new Callback<UsersResponse>() {
             @Override
@@ -98,6 +91,7 @@ public class DetailUser extends AppCompatActivity {
 
                 UsersResponse data = response.body();
                 if (response.isSuccessful()) {
+                    progressBar.setVisibility(View.INVISIBLE);
 
                     s_nama = data.login;
                     s_company = data.company;
@@ -114,14 +108,13 @@ public class DetailUser extends AppCompatActivity {
 
                 } else {
                     Toast.makeText(DetailUser.this, response.message(), Toast.LENGTH_SHORT).show();
-
                 }
             }
 
             @Override
             public void onFailure(Call<UsersResponse> call, Throwable t) {
+                progressBar.setVisibility(View.INVISIBLE);
                 Toast.makeText(DetailUser.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.d("coba gagal", t.getMessage());
             }
 
         });
@@ -130,13 +123,15 @@ public class DetailUser extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_setting, menu);
-        //Tools.changeMenuIconColor(menu, getResources().getColor(R.color.grey_60));
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
+        if (item.getItemId() == R.id.icon_setting) {
+            Intent i = new Intent(android.provider.Settings.ACTION_LOCALE_SETTINGS);
+            startActivity(i);
+        } else if (item.getItemId() == android.R.id.home) {
             finish();
         } else {
             Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
