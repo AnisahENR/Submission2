@@ -8,13 +8,12 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.submission2.Adapter.AdapterListFollow;
-import com.example.submission2.Model.FollowModel;
+import com.example.submission2.Model.UserModel;
 import com.example.submission2.R;
 import com.example.submission2.Response.FollowerResponse;
 import com.example.submission2.Retrofit.ApiService;
@@ -28,12 +27,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ListFollowing extends Fragment {
-
+    public static final String USERNAME = "username";
     ApiService service;
     private RecyclerView recyclerView;
     private AdapterListFollow mAdapter;
-    ArrayList<FollowModel> listuser;
+    ArrayList<UserModel> listuser;
     private ProgressBar progressBar;
+    String username;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -41,10 +41,10 @@ public class ListFollowing extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_follower, container, false);
 
-        listuser = new ArrayList<FollowModel>();
+        listuser = new ArrayList<UserModel>();
         progressBar = view.findViewById(R.id.progressBar);
-
-        getfollowing();
+        username = getArguments().getString(username);
+        getfollowing(username);
         recyclerView = (RecyclerView) view.findViewById(R.id.daftar_follow);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         recyclerView.setHasFixedSize(true);
@@ -59,9 +59,8 @@ public class ListFollowing extends Fragment {
         recyclerView.setAdapter(mAdapter);
     }
 
-    private void getfollowing() {
+    private void getfollowing(String username) {
         progressBar.setVisibility(View.VISIBLE);
-        String username = "sidiqpermana";
         String token = "f9c8af02e357697c2ffdd8801d3eb0e6c16526aa";
         service = ServiceGenerator.createService(ApiService.class);
         Call<List<FollowerResponse>> CallBody3;
@@ -75,7 +74,7 @@ public class ListFollowing extends Fragment {
                 if (response.isSuccessful()) {
                     progressBar.setVisibility(View.INVISIBLE);
                     for (int i = 0; i < data.size(); i++) {
-                        listuser.add(new FollowModel(data.get(i).login, data.get(i).avatar_url));
+                        listuser.add(new UserModel(data.get(i).login, data.get(i).avatar_url));
                     }
                     mAdapter.notifyDataSetChanged();
                 } else {

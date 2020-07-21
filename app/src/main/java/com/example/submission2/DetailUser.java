@@ -1,28 +1,21 @@
 package com.example.submission2;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.example.submission2.Adapter.AdapterListFollow;
-import com.example.submission2.Model.FollowModel;
-import com.example.submission2.Response.FollowerResponse;
+import com.example.submission2.Fragment.ListFollower;
+import com.example.submission2.Fragment.ListFollowing;
 import com.example.submission2.Response.UsersResponse;
 import com.example.submission2.Retrofit.ApiService;
 import com.example.submission2.Retrofit.ServiceGenerator;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,33 +26,43 @@ import android.widget.Toast;
 import com.example.submission2.ui.main.SectionsPagerAdapter;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DetailUser extends AppCompatActivity {
+    public static final String USERNAME = "username";
     ApiService service;
     Call<UsersResponse> CallBody;
-    String s_nama, s_company, s_blog, s_alamat;
+    String s_nama, s_company, s_blog, s_alamat, username;
     CircularImageView ava;
     private ProgressBar progressBar;
+    Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_user);
-        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
+        username = getIntent().getStringExtra(USERNAME);
+        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(), username);
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
+
+        bundle = new Bundle();
+        bundle.putString("username", username);
+
+        // set Fragmentclass Arguments
+        ListFollower listFollower = new ListFollower();
+        listFollower.setArguments(bundle);
+
+        ListFollowing listFollowing = new ListFollowing();
+        listFollowing.setArguments(bundle);
+
         progressBar = findViewById(R.id.progressBar);
         tabs.setupWithViewPager(viewPager);
 
         initToolbar();
-        String username = "sidiqpermana";
         getdetail_user(username);
 
     }
@@ -83,7 +86,7 @@ public class DetailUser extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
         service = ServiceGenerator.createService(ApiService.class);
         String token = "f9c8af02e357697c2ffdd8801d3eb0e6c16526aa";
-        CallBody = service.user(username,token);
+        CallBody = service.user(username, token);
 
         CallBody.enqueue(new Callback<UsersResponse>() {
             @Override

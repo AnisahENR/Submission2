@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -15,7 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.submission2.Adapter.AdapterListUser;
-import com.example.submission2.Model.FollowModel;
+import com.example.submission2.Model.UserModel;
 import com.example.submission2.Response.CariResponse;
 import com.example.submission2.Response.FollowerResponse;
 import com.example.submission2.Response.UsersResponse;
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     SearchView cari2;
     private RecyclerView recyclerView;
     private AdapterListUser mAdapter;
-    ArrayList<FollowModel> listuser ;
+    ArrayList<UserModel> listuser;
     private ProgressBar progressBar;
 
     @Override
@@ -50,18 +51,13 @@ public class MainActivity extends AppCompatActivity {
 
         cari2 = findViewById(R.id.cari);
         progressBar = findViewById(R.id.progressBar);
-        listuser = new ArrayList<FollowModel>();
 
-//        bt_search = findViewById(R.id.bt_search);
-//        bt_search.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(MainActivity.this, DetailUser.class));
-//            }
-//        });
+        listuser = new ArrayList<UserModel>();
 
-        getuser("PermanAtayev");
-        getuser2();
+        cari2.clearFocus();
+        pencarian(); // memanggil method pencarian
+
+        // memasukkan data hasil cari kedalam recycler view
         recyclerView = (RecyclerView) findViewById(R.id.list_user);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
@@ -70,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void pencarian(){
+    public void pencarian() {
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         if (searchManager != null) {
 //
@@ -83,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public boolean onQueryTextSubmit(String query) {
 //                    Toast.makeText(MainActivity.this, query, Toast.LENGTH_SHORT).show();
-//                    getuser(query);
+                    getuser(query);
                     return true;
                 }
 
@@ -105,46 +101,31 @@ public class MainActivity extends AppCompatActivity {
         //set data and list adapter
         mAdapter = new AdapterListUser(this, listuser);
         recyclerView.setAdapter(mAdapter);
-
-        // on item list clicked
-//        mAdapter.setOnItemClickListener(new AdapterListEvent.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(View view, ModelEvent obj, int position) {
-//
-//
-////                Intent detail_event = new Intent(List_event.this,Detail_berita.class);
-////                ModelEvent listdetail = event12.get(position);
-////                detail_event.putExtra("id_event",listdetail.getId_event());
-////                detail_event.putExtra("judul_event",listdetail.getJudul_event());
-////                detail_event.putExtra("deskripsi",listdetail.getDeskripsi());
-////                detail_event.putExtra("nama_gambar",listdetail.getNama_gambar());
-////                startActivity(detail_event);
-//                Snackbar.make(parent_view, "Item " + obj.getJudul_event() + " clicked", Snackbar.LENGTH_SHORT).show();
-//            }
-//        });
     }
 
-    private void getuser(String username) {
+    private void getuser(String q) {
 
-       // String q = "sidiqpermana";
+//         String q = "sidiqpermana";
+        String token = "f9c8af02e357697c2ffdd8801d3eb0e6c16526aa";
         service = ServiceGenerator.createService(ApiService.class);
-        CallBody = service.cari(username);
+        CallBody = service.cari(q, token);
 
         CallBody.enqueue(new Callback<CariResponse>() {
             @Override
             public void onResponse(Call<CariResponse> call, Response<CariResponse> response) {
-              //  CovidResponse model = response.body();
+                progressBar.setVisibility(View.VISIBLE);
+                CariResponse datares = response.body();
                 if (response.isSuccessful()) {
-
-//                    Toast.makeText(MainActivity.this, "Data Gagal Disimpan", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(MainActivity.this, new Gson().toJson(response.body()), Toast.LENGTH_LONG).show();
-
-//                    Snackbar.make(parent_view, "Data Gagal Disimpan", Snackbar.LENGTH_LONG).show();
-//                    finish();
-
+                    progressBar.setVisibility(View.INVISIBLE);
+                    for (int i = 0; i < datares.items.size(); i++) {
+                        listuser.add(new UserModel(datares.items.get(i).login, datares.items.get(i).avatar_url));
+                    }
+                    mAdapter.notifyDataSetChanged();
+//                    Log.d("isi data : ", new Gson().toJson(response.body()));
                 } else {
-                    Toast.makeText(MainActivity.this, new Gson().toJson(response.body()) +" \n"+ response.message(), Toast.LENGTH_SHORT).show();
-////                    showDialogTambah(nama_barang);
+                    progressBar.setVisibility(View.INVISIBLE);
+                    Toast.makeText(MainActivity.this, new Gson().toJson(response.body()) + " \n" + response.message(), Toast.LENGTH_SHORT).show();
+                    Log.d("isi data : ", new Gson().toJson(response.body()));
 
                 }
 
@@ -174,8 +155,8 @@ public class MainActivity extends AppCompatActivity {
 
                 if (response.isSuccessful()) {
                     progressBar.setVisibility(View.INVISIBLE);
-                    for (int i = 0; i<datares.size(); i++){
-                        listuser.add(new FollowModel(datares.get(i).login,datares.get(i).avatar_url));
+                    for (int i = 0; i < datares.size(); i++) {
+                        listuser.add(new UserModel(datares.get(i).login, datares.get(i).avatar_url));
                     }
                     mAdapter.notifyDataSetChanged();
 

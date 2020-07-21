@@ -1,10 +1,10 @@
 package com.example.submission2.Model;
 
-public class FollowModel {
+public class UserModel {
     public String login;
     public String avatar_url;
 
-    public FollowModel(String login, String avatar_url){
+    public UserModel(String login, String avatar_url){
         this.login = login;
         this.avatar_url = avatar_url;
     }

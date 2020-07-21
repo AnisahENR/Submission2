@@ -13,26 +13,26 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.submission2.DetailUser;
-import com.example.submission2.Model.FollowModel;
+import com.example.submission2.Model.UserModel;
 import com.example.submission2.R;
 
 import java.util.ArrayList;
 
 public class AdapterListUser extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private ArrayList<FollowModel> items = new ArrayList<>();
+    private ArrayList<UserModel> items = new ArrayList<>();
 
     private Context ctx;
     private OnItemClickListener mOnItemClickListener;
 
     public interface OnItemClickListener {
-        void onItemClick(View view, FollowModel obj, int position);
+        void onItemClick(View view, UserModel obj, int position);
     }
 
     public void setOnItemClickListener(final OnItemClickListener mItemClickListener) {
         this.mOnItemClickListener = mItemClickListener;
     }
 
-    public AdapterListUser(Context context, ArrayList<FollowModel> items) {
+    public AdapterListUser(Context context, ArrayList<UserModel> items) {
         this.items = items;
         ctx = context;
     }
@@ -64,7 +64,7 @@ public class AdapterListUser extends RecyclerView.Adapter<RecyclerView.ViewHolde
         if (holder instanceof OriginalViewHolder) {
             OriginalViewHolder view = (OriginalViewHolder) holder;
 
-            final FollowModel obj = items.get(position);
+            final UserModel obj = items.get(position);
             view.name.setText(obj.login);
             Glide.with(ctx)
                     .load(obj.getAvatar_url())
@@ -79,6 +79,7 @@ public class AdapterListUser extends RecyclerView.Adapter<RecyclerView.ViewHolde
 //                    if (mOnItemClickListener != null) {
 //                        mOnItemClickListener.onItemClick(view, items.get(position), position);
                     Intent in = new Intent(ctx, DetailUser.class);
+                    in.putExtra("username",obj.login);
                     ctx.startActivity(in);
 //                    }
                 }

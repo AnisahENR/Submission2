@@ -11,6 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceGenerator {
     public static final String BASE_URL = "https://api.github.com/";
+//    https://api.github.com/
     //public static final String BASE_URL = "http://192.168.42.170/api_paskot/server/" ;
 //    public static final String BASE_URL = "https://api.pasuruankota.go.id/api_kipas/android/Andro_dispora/";
 

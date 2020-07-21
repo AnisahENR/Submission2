@@ -11,27 +11,27 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.example.submission2.Model.FollowModel;
+import com.example.submission2.Model.UserModel;
 import com.example.submission2.R;
 
 import java.util.ArrayList;
 
 public class AdapterListFollow extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
-    private ArrayList<FollowModel> items = new ArrayList<>();
+    private ArrayList<UserModel> items = new ArrayList<>();
 
     private Context ctx;
     private AdapterListFollow.OnItemClickListener mOnItemClickListener;
 
     public interface OnItemClickListener {
-        void onItemClick(View view, FollowModel obj, int position);
+        void onItemClick(View view, UserModel obj, int position);
     }
 
     public void setOnItemClickListener(final AdapterListFollow.OnItemClickListener mItemClickListener) {
         this.mOnItemClickListener = mItemClickListener;
     }
 
-    public AdapterListFollow(Context context, ArrayList<FollowModel> items) {
+    public AdapterListFollow(Context context, ArrayList<UserModel> items) {
         this.items = items;
         ctx = context;
     }
@@ -63,7 +63,7 @@ public class AdapterListFollow extends RecyclerView.Adapter<RecyclerView.ViewHol
         if (holder instanceof AdapterListFollow.OriginalViewHolder) {
             AdapterListFollow.OriginalViewHolder view = (AdapterListFollow.OriginalViewHolder) holder;
 
-            final FollowModel obj = items.get(position);
+            final UserModel obj = items.get(position);
             view.name.setText(obj.login);
             Glide.with(ctx)
                     .load(obj.getAvatar_url())
