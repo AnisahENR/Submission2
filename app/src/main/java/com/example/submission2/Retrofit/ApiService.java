@@ -23,8 +23,8 @@ public interface ApiService {
     // api pencarian pengguna
     @GET("search/users")
     Call<CariResponse> cari(
-            @Query("q") String q
-//            @Header("Authorization") String token
+            @Query("q") String q,
+            @Header("Authorization") String token
     );
 
     // api follower pengguna

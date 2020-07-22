@@ -19,6 +19,7 @@ import com.example.submission2.R;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class AdapterListUser extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<UserModel> items = new ArrayList<>();
@@ -76,7 +77,7 @@ public class AdapterListUser extends RecyclerView.Adapter<RecyclerView.ViewHolde
 //                    if (mOnItemClickListener != null) {
 //                        mOnItemClickListener.onItemClick(view, items.get(position), position);
                     Intent in = new Intent(ctx, DetailUser.class);
-                    in.putExtra("username",obj.login);
+                    in.putExtra("username", obj.login);
                     ctx.startActivity(in);
 
 //                    }
@@ -88,5 +89,22 @@ public class AdapterListUser extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public int getItemCount() {
         return items.size();
+    }
+
+    // Filter Class
+    public void filter(String charText) {
+        ArrayList<UserModel> tempList = new ArrayList<UserModel>();
+        charText = charText.toLowerCase(Locale.getDefault());
+        items.clear();
+        if (charText.length() == 0) {
+            tempList.addAll(items);
+        } else {
+            for (UserModel wp : items) {
+                if (wp.login.toLowerCase(Locale.getDefault()).contains(charText)) {
+                    tempList.add(wp);
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
 }

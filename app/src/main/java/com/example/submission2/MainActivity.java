@@ -33,11 +33,8 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    ImageButton bt_search;
     ApiService service;
     Call<CariResponse> CallBody;
-    Call<UsersResponse> CallBody2;
-    EditText cari;
     SearchView cari2;
     private RecyclerView recyclerView;
     private AdapterListUser mAdapter;
@@ -68,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
     public void pencarian() {
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         if (searchManager != null) {
+            cari2.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+//            cari2.setQueryHint(getResources().getString(R.string.hint_search));
             cari2.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 /*
                 Gunakan method ini ketika search selesai atau OK
@@ -80,9 +79,12 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public boolean onQueryTextChange(String newText) {
+                    String text = newText;
+                    mAdapter.filter(text);
                     return false;
                 }
             });
+
         }
     }
 
@@ -94,9 +96,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void getuser(String q) {
         progressBar.setVisibility(View.VISIBLE);
-//        String token = "f9c8af02e357697c2ffdd8801d3eb0e6c16526aa";
+        String token = "f9c8af02e357697c2ffdd8801d3eb0e6c16526aa";
         service = ServiceGenerator.createService(ApiService.class);
-        CallBody = service.cari(q);
+        CallBody = service.cari(q, token);
 
         CallBody.enqueue(new Callback<CariResponse>() {
             @Override
