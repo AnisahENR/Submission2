@@ -43,21 +43,13 @@ public class DetailUser extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_user);
+
         username = getIntent().getStringExtra(USERNAME);
+
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(), username);
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
-
-        bundle = new Bundle();
-        bundle.putString("username", username);
-
-        // set Fragmentclass Arguments
-        ListFollower listFollower = new ListFollower();
-        listFollower.setArguments(bundle);
-
-        ListFollowing listFollowing = new ListFollowing();
-        listFollowing.setArguments(bundle);
 
         progressBar = findViewById(R.id.progressBar);
         tabs.setupWithViewPager(viewPager);

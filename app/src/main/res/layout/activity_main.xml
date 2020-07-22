@@ -19,6 +19,11 @@
 <!--            android:scaleType="centerCrop"-->
 <!--            android:src="wo"-->
 <!--            android:tint="@color/colorPrimaryDark" />-->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/world_map"
+            android:tint="@color/white"/>
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -28,8 +33,10 @@
             app:contentInsetStartWithNavigation="0dp"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:subtitleTextAppearance="@style/Base.TextAppearance.AppCompat.Caption"
-            app:subtitleTextColor="@color/colorPrimaryDark"
-            app:title="Hi, World" />
+            app:subtitleTextColor="@color/white"
+            app:title="Hi, World"
+            app:subtitle="Saya Anisah Denis"
+            />
 
     </RelativeLayout>
 
@@ -59,17 +66,14 @@
                 android:id="@+id/cari"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#ff8a65"
+                android:background="@color/menu_search"
                 >
-
             </androidx.appcompat.widget.SearchView>
 
 
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
-
-
 
     </LinearLayout>
 

@@ -27,7 +27,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ListFollowing extends Fragment {
-    public static final String USERNAME = "username";
+
     ApiService service;
     private RecyclerView recyclerView;
     private AdapterListFollow mAdapter;
@@ -43,7 +43,8 @@ public class ListFollowing extends Fragment {
 
         listuser = new ArrayList<UserModel>();
         progressBar = view.findViewById(R.id.progressBar);
-        username = getArguments().getString(username);
+
+        username = getArguments().getString("username");
         getfollowing(username);
         recyclerView = (RecyclerView) view.findViewById(R.id.daftar_follow);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
@@ -60,7 +61,8 @@ public class ListFollowing extends Fragment {
     }
 
     private void getfollowing(String username) {
-        progressBar.setVisibility(View.VISIBLE);
+//        progressBar.setVisibility(View.VISIBLE);
+//        String username = "sidiqpermana";
         String token = "f9c8af02e357697c2ffdd8801d3eb0e6c16526aa";
         service = ServiceGenerator.createService(ApiService.class);
         Call<List<FollowerResponse>> CallBody3;

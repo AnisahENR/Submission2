@@ -16,4 +16,5 @@
     <color name="grey_100_">#0d0d0d</color>
     <color name="white">#ffffff</color>
     <color name="red">#D50000</color>
+    <color name="menu_search">#ff8a65</color>
 </resources>

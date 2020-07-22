@@ -26,7 +26,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ListFollower extends Fragment {
-    public static final String USERNAME = "username";
+
     ApiService service;
     private RecyclerView recyclerView;
     private AdapterListFollow mAdapter;
