@@ -4,4 +4,7 @@
     <string name="title_activity_detail_user">Detail User</string>
     <string name="tab_text_1">Follower</string>
     <string name="tab_text_2">Following</string>
+    <string name="text_judul">Search List Results</string>
+    <string name="judulbesar">Hi, World</string>
+    <string name="judulkecil">I am Anisah Denis</string>
 </resources>

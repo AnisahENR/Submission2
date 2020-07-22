@@ -61,8 +61,7 @@ public class ListFollowing extends Fragment {
     }
 
     private void getfollowing(String username) {
-//        progressBar.setVisibility(View.VISIBLE);
-//        String username = "sidiqpermana";
+        progressBar.setVisibility(View.VISIBLE);
         String token = "f9c8af02e357697c2ffdd8801d3eb0e6c16526aa";
         service = ServiceGenerator.createService(ApiService.class);
         Call<List<FollowerResponse>> CallBody3;

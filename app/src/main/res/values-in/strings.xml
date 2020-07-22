@@ -5,4 +5,7 @@
     <string name="title_activity_detail_user">Detail Pengguna</string>
     <string name="tab_text_1">Pengikut</string>
     <string name="tab_text_2">Mengikuti</string>
+    <string name="text_judul">Hasil Daftar Pencarian</string>
+    <string name="judulbesar">Hai, Dunia</string>
+    <string name="judulkecil">Saya Anisah Denis</string>
 </resources>

@@ -51,9 +51,9 @@ public class MainActivity extends AppCompatActivity {
 
         cari2 = findViewById(R.id.cari);
         progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.INVISIBLE);
 
         listuser = new ArrayList<UserModel>();
-
         cari2.clearFocus();
         pencarian(); // memanggil method pencarian
 
@@ -63,34 +63,23 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         setAdapter();
 
-
     }
 
     public void pencarian() {
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         if (searchManager != null) {
-//
-//            searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-//            searchView.setQueryHint(getResources().getString(R.string.hint_search));
             cari2.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 /*
                 Gunakan method ini ketika search selesai atau OK
                  */
                 @Override
                 public boolean onQueryTextSubmit(String query) {
-//                    Toast.makeText(MainActivity.this, query, Toast.LENGTH_SHORT).show();
                     getuser(query);
                     return true;
                 }
 
-                /*
-                Gunakan method ini untuk merespon tiap perubahan huruf pada searchView
-                 */
                 @Override
                 public boolean onQueryTextChange(String newText) {
-                    String text = newText;
-//                    mAdapter.filter(text);
-//                    return false;
                     return false;
                 }
             });
@@ -104,16 +93,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getuser(String q) {
-
-//         String q = "sidiqpermana";
-        String token = "f9c8af02e357697c2ffdd8801d3eb0e6c16526aa";
+        progressBar.setVisibility(View.VISIBLE);
+//        String token = "f9c8af02e357697c2ffdd8801d3eb0e6c16526aa";
         service = ServiceGenerator.createService(ApiService.class);
-        CallBody = service.cari(q, token);
+        CallBody = service.cari(q);
 
         CallBody.enqueue(new Callback<CariResponse>() {
             @Override
             public void onResponse(Call<CariResponse> call, Response<CariResponse> response) {
-                progressBar.setVisibility(View.VISIBLE);
                 CariResponse datares = response.body();
                 if (response.isSuccessful()) {
                     progressBar.setVisibility(View.INVISIBLE);
@@ -133,42 +120,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<CariResponse> call, Throwable t) {
-                Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-
-        });
-    }
-
-    private void getuser2() {
-        progressBar.setVisibility(View.VISIBLE);
-        String username = "sidiqpermana";
-        String token = "f9c8af02e357697c2ffdd8801d3eb0e6c16526aa";
-        service = ServiceGenerator.createService(ApiService.class);
-        Call<List<FollowerResponse>> CallBody3;
-        CallBody3 = service.follower(username, token);
-
-        CallBody3.enqueue(new Callback<List<FollowerResponse>>() {
-            @Override
-            public void onResponse(Call<List<FollowerResponse>> call, Response<List<FollowerResponse>> response) {
-                //  CovidResponse model = response.body();
-                List<FollowerResponse> datares = response.body();
-
-                if (response.isSuccessful()) {
-                    progressBar.setVisibility(View.INVISIBLE);
-                    for (int i = 0; i < datares.size(); i++) {
-                        listuser.add(new UserModel(datares.get(i).login, datares.get(i).avatar_url));
-                    }
-                    mAdapter.notifyDataSetChanged();
-
-                } else {
-                    progressBar.setVisibility(View.INVISIBLE);
-                    Toast.makeText(MainActivity.this, response.message(), Toast.LENGTH_SHORT).show();
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<FollowerResponse>> call, Throwable t) {
                 Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
 

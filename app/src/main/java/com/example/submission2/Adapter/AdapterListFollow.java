@@ -27,10 +27,6 @@ public class AdapterListFollow extends RecyclerView.Adapter<RecyclerView.ViewHol
         void onItemClick(View view, UserModel obj, int position);
     }
 
-    public void setOnItemClickListener(final AdapterListFollow.OnItemClickListener mItemClickListener) {
-        this.mOnItemClickListener = mItemClickListener;
-    }
-
     public AdapterListFollow(Context context, ArrayList<UserModel> items) {
         this.items = items;
         ctx = context;

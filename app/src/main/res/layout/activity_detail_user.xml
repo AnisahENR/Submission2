@@ -11,16 +11,6 @@
         android:layout_height="wrap_content"
         android:background="@color/peach">
 
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:fontFamily="@font/andika"-->
-<!--            android:padding="@dimen/spacing_medium"-->
-<!--            android:text="@string/title_activity_detail_user"-->
-<!--            android:textSize="@dimen/spacing_xlarge">-->
-
-<!--        </TextView>-->
         <include layout="@layout/toolbar"></include>
 
         <LinearLayout
@@ -175,13 +165,6 @@
         android:background="@color/grey_10"
         >
 
-<!--        <com.google.android.material.tabs.TabLayout-->
-<!--            android:id="@+id/tabs"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:background="#f28c9c"-->
-<!--            app:tabTextColor="@color/white" />-->
-
         <ProgressBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyle"
@@ -193,16 +176,5 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.viewpager.widget.ViewPager>
-
-
-
-
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:id="@+id/fab"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_gravity="bottom|end"-->
-<!--        android:layout_margin="@dimen/fab_margin"-->
-<!--        app:srcCompat="@android:drawable/ic_dialog_email" />-->
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

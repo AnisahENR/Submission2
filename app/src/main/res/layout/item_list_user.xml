@@ -18,10 +18,10 @@
             android:layout_width="@dimen/spacing_mlarge"
             android:layout_height="0dp" />
 
-        <ImageView
+        <com.mikhaellopez.circularimageview.CircularImageView
             android:id="@+id/profil_user"
-            android:layout_width="@dimen/spacing_mxlarge"
-            android:layout_height="@dimen/spacing_mxlarge"
+            android:layout_width="@dimen/spacing_xlarge"
+            android:layout_height="@dimen/spacing_xlarge"
             android:layout_gravity="center_vertical"
             android:tint="@color/grey_60"
             app:srcCompat="@drawable/ic_search_grey"
@@ -64,38 +64,14 @@
                         android:textColor="@color/peach"
                         android:fontFamily="@font/andika"/>
 
-<!--                    <TextView-->
-<!--                        android:id="@+id/brief"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginEnd="@dimen/spacing_middle"-->
-<!--                        android:layout_marginRight="@dimen/spacing_middle"-->
-<!--                        android:layout_marginTop="@dimen/spacing_small"-->
-<!--                        android:maxLines="2"-->
-<!--                        android:text="Sub text"-->
-<!--                        android:textAppearance="@style/TextAppearance.AppCompat.Small"-->
-<!--                        android:textColor="@color/grey_40" />-->
-
                 </LinearLayout>
-
-<!--                <ImageButton-->
-<!--                    android:layout_width="?attr/actionBarSize"-->
-<!--                    android:layout_height="?attr/actionBarSize"-->
-<!--                    android:layout_gravity="center_vertical"-->
-<!--                    android:background="@android:color/transparent"-->
-<!--                    android:tint="@color/grey_40"-->
-<!--                    app:srcCompat="@drawable/ic_chevron_right" />-->
 
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/spacing_medium" />
-
-            <View
-                android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/grey_20" />
+                android:background="@color/peach" />
 
         </LinearLayout>
 

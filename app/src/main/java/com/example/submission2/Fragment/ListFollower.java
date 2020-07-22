@@ -61,7 +61,6 @@ public class ListFollower extends Fragment {
 
     private void getFollower(String username) {
         progressBar.setVisibility(View.VISIBLE);
-//        String username = "sidiqpermana";
         String token = "f9c8af02e357697c2ffdd8801d3eb0e6c16526aa";
         service = ServiceGenerator.createService(ApiService.class);
         Call<List<FollowerResponse>> CallBody3;
@@ -70,7 +69,6 @@ public class ListFollower extends Fragment {
         CallBody3.enqueue(new Callback<List<FollowerResponse>>() {
             @Override
             public void onResponse(Call<List<FollowerResponse>> call, Response<List<FollowerResponse>> response) {
-                //  CovidResponse model = response.body();
                 List<FollowerResponse> data = response.body();
                 if (response.isSuccessful()) {
                     progressBar.setVisibility(View.INVISIBLE);
