@@ -8,10 +8,9 @@ import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.fragment.app.FragmentTransaction;
 
-import com.example.submission2.Fragment.ListFollower;
-import com.example.submission2.Fragment.ListFollowing;
+import com.example.submission2.fragment.ListFollower;
+import com.example.submission2.fragment.ListFollowing;
 import com.example.submission2.R;
 
 /**

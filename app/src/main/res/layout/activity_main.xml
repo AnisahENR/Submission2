@@ -52,7 +52,8 @@
             android:layout_height="match_parent"
             android:background="@color/peach"
             android:layout_marginTop="@dimen/spacing_large"
-            android:elevation="3dp">
+            android:elevation="3dp"
+            >
 
         </androidx.appcompat.widget.SearchView>
 
@@ -63,18 +64,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_height="match_parent"
         android:layout_width="match_parent">
-
-<!--        <androidx.cardview.widget.CardView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            tools:ignore="MissingConstraints"-->
-<!--            android:padding="@dimen/spacing_middle"-->
-<!--            android:layout_marginLeft="@dimen/spacing_large"-->
-<!--            android:layout_marginRight="@dimen/spacing_large"-->
-<!--            app:cardBackgroundColor="@color/white"-->
-<!--            app:cardElevation="2dp"-->
-<!--            app:cardCornerRadius="1dp"-->
-<!--            android:orientation="horizontal">-->
 
         <TextView
             android:id="@+id/textView"
@@ -90,14 +79,14 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list_user"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_margin="@dimen/spacing_large"
             android:paddingTop="@dimen/spacing_xxlarge"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.145"
             tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="16dp" />
+            tools:layout_editor_absoluteX="16dp"/>
 
         <ProgressBar
                 android:id="@+id/progressBar"
@@ -108,11 +97,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-<!--        </androidx.cardview.widget.CardView>-->
-
-
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

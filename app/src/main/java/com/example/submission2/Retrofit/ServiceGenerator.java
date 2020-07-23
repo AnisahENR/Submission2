@@ -1,9 +1,7 @@
-package com.example.submission2.Retrofit;
+package com.example.submission2.retrofit;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
-import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;

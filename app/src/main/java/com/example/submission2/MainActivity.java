@@ -10,22 +10,17 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.submission2.Adapter.AdapterListUser;
-import com.example.submission2.Model.UserModel;
-import com.example.submission2.Response.CariResponse;
-import com.example.submission2.Response.FollowerResponse;
-import com.example.submission2.Response.UsersResponse;
-import com.example.submission2.Retrofit.ApiService;
-import com.example.submission2.Retrofit.ServiceGenerator;
+import com.example.submission2.adapter.AdapterListUser;
+import com.example.submission2.model.UserModel;
+import com.example.submission2.response.CariResponse;
+import com.example.submission2.retrofit.ApiService;
+import com.example.submission2.retrofit.ServiceGenerator;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -96,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void getuser(String q) {
         progressBar.setVisibility(View.VISIBLE);
-        String token = "f9c8af02e357697c2ffdd8801d3eb0e6c16526aa";
+        String token = BuildConfig.GITHUB_TOKEN;
         service = ServiceGenerator.createService(ApiService.class);
         CallBody = service.cari(q, token);
 

@@ -1,4 +1,4 @@
-package com.example.submission2.Model;
+package com.example.submission2.model;
 
 public class UserModel {
     public String login;

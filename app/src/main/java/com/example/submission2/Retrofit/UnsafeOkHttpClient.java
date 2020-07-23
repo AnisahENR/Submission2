@@ -1,4 +1,4 @@
-package com.example.submission2.Retrofit;
+package com.example.submission2.retrofit;
 
 import java.security.cert.CertificateException;
 

@@ -1,8 +1,8 @@
-package com.example.submission2.Retrofit;
+package com.example.submission2.retrofit;
 
-import com.example.submission2.Response.CariResponse;
-import com.example.submission2.Response.FollowerResponse;
-import com.example.submission2.Response.UsersResponse;
+import com.example.submission2.response.CariResponse;
+import com.example.submission2.response.FollowerResponse;
+import com.example.submission2.response.UsersResponse;
 
 import java.util.List;
 

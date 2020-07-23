@@ -1,4 +1,4 @@
-package com.example.submission2.Fragment;
+package com.example.submission2.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,16 +7,19 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.submission2.Adapter.AdapterListFollow;
-import com.example.submission2.Model.UserModel;
+import com.example.submission2.BuildConfig;
+import com.example.submission2.adapter.AdapterListFollow;
+import com.example.submission2.model.UserModel;
 import com.example.submission2.R;
-import com.example.submission2.Response.FollowerResponse;
-import com.example.submission2.Retrofit.ApiService;
-import com.example.submission2.Retrofit.ServiceGenerator;
+import com.example.submission2.response.FollowerResponse;
+import com.example.submission2.retrofit.ApiService;
+import com.example.submission2.retrofit.ServiceGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,9 +40,15 @@ public class ListFollower extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-//
 
         View view = inflater.inflate(R.layout.fragment_follower, container, false);
+        return view;
+
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         listuser = new ArrayList<UserModel>();
         progressBar = view.findViewById(R.id.progressBar);
         username = getArguments().getString("username");
@@ -48,8 +57,6 @@ public class ListFollower extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         recyclerView.setHasFixedSize(true);
         setAdapter();
-
-        return view;
 
     }
 
@@ -61,7 +68,7 @@ public class ListFollower extends Fragment {
 
     private void getFollower(String username) {
         progressBar.setVisibility(View.VISIBLE);
-        String token = "f9c8af02e357697c2ffdd8801d3eb0e6c16526aa";
+        String token = BuildConfig.GITHUB_TOKEN;
         service = ServiceGenerator.createService(ApiService.class);
         Call<List<FollowerResponse>> CallBody3;
         CallBody3 = service.follower(username, token);

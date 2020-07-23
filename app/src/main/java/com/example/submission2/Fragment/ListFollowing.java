@@ -1,4 +1,4 @@
-package com.example.submission2.Fragment;
+package com.example.submission2.fragment;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -8,16 +8,20 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.submission2.Adapter.AdapterListFollow;
-import com.example.submission2.Model.UserModel;
+import com.example.submission2.BuildConfig;
+import com.example.submission2.adapter.AdapterListFollow;
+import com.example.submission2.model.UserModel;
 import com.example.submission2.R;
-import com.example.submission2.Response.FollowerResponse;
-import com.example.submission2.Retrofit.ApiService;
-import com.example.submission2.Retrofit.ServiceGenerator;
+import com.example.submission2.response.FollowerResponse;
+import com.example.submission2.retrofit.ApiService;
+import com.example.submission2.retrofit.ServiceGenerator;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,18 +44,23 @@ public class ListFollowing extends Fragment {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_follower, container, false);
+        return view;
+    }
 
-        listuser = new ArrayList<UserModel>();
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         progressBar = view.findViewById(R.id.progressBar);
 
+
+        listuser = new ArrayList<UserModel>();
         username = getArguments().getString("username");
         getfollowing(username);
-        recyclerView = (RecyclerView) view.findViewById(R.id.daftar_follow);
+
+        recyclerView = view.findViewById(R.id.daftar_follow);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         recyclerView.setHasFixedSize(true);
         setAdapter();
-
-        return view;
     }
 
     private void setAdapter() {
@@ -62,10 +71,10 @@ public class ListFollowing extends Fragment {
 
     private void getfollowing(String username) {
         progressBar.setVisibility(View.VISIBLE);
-        String token = "f9c8af02e357697c2ffdd8801d3eb0e6c16526aa";
+        String token = BuildConfig.GITHUB_TOKEN;
         service = ServiceGenerator.createService(ApiService.class);
         Call<List<FollowerResponse>> CallBody3;
-        CallBody3 = service.following(username,token);
+        CallBody3 = service.following(username, token);
 
         CallBody3.enqueue(new Callback<List<FollowerResponse>>() {
             @Override
@@ -78,6 +87,7 @@ public class ListFollowing extends Fragment {
                         listuser.add(new UserModel(data.get(i).login, data.get(i).avatar_url));
                     }
                     mAdapter.notifyDataSetChanged();
+//                    Log.d("data following", new Gson().toJson(response.body()));
                 } else {
                     progressBar.setVisibility(View.INVISIBLE);
                     Toast.makeText(getContext(), response.message() + "  datasalah", Toast.LENGTH_SHORT).show();

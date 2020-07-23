@@ -1,4 +1,4 @@
-package com.example.submission2.Adapter;
+package com.example.submission2.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,12 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.example.submission2.Model.UserModel;
+import com.example.submission2.model.UserModel;
 import com.example.submission2.R;
 
 import java.util.ArrayList;
 
-public class AdapterListFollow extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class AdapterListFollow extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private ArrayList<UserModel> items = new ArrayList<>();
 
@@ -35,13 +35,11 @@ public class AdapterListFollow extends RecyclerView.Adapter<RecyclerView.ViewHol
     public class OriginalViewHolder extends RecyclerView.ViewHolder {
         public ImageView image;
         public TextView name;
-        public View lyt_parent;
 
         public OriginalViewHolder(View v) {
             super(v);
-            image = (ImageView) v.findViewById(R.id.profil_follow);
-            name = (TextView) v.findViewById(R.id.nama_follow);
-            lyt_parent = (View) v.findViewById(R.id.lyt_parent);
+            image = v.findViewById(R.id.profil_follow);
+            name = v.findViewById(R.id.nama_follow);
         }
     }
 
@@ -58,7 +56,6 @@ public class AdapterListFollow extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof AdapterListFollow.OriginalViewHolder) {
             AdapterListFollow.OriginalViewHolder view = (AdapterListFollow.OriginalViewHolder) holder;
-
             final UserModel obj = items.get(position);
             view.name.setText(obj.login);
             Glide.with(ctx)
@@ -67,15 +64,6 @@ public class AdapterListFollow extends RecyclerView.Adapter<RecyclerView.ViewHol
                     .crossFade() // animasi
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(view.image);
-//            Tools.displayImageRound(ctx, view.image, p.image);
-            view.lyt_parent.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (mOnItemClickListener != null) {
-                        mOnItemClickListener.onItemClick(view, items.get(position), position);
-                    }
-                }
-            });
         }
     }
 

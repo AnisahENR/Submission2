@@ -5,11 +5,9 @@ import android.os.Bundle;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.example.submission2.Fragment.ListFollower;
-import com.example.submission2.Fragment.ListFollowing;
-import com.example.submission2.Response.UsersResponse;
-import com.example.submission2.Retrofit.ApiService;
-import com.example.submission2.Retrofit.ServiceGenerator;
+import com.example.submission2.response.UsersResponse;
+import com.example.submission2.retrofit.ApiService;
+import com.example.submission2.retrofit.ServiceGenerator;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.appcompat.widget.Toolbar;
@@ -77,7 +75,7 @@ public class DetailUser extends AppCompatActivity {
     private void getdetail_user(String username) {
         progressBar.setVisibility(View.VISIBLE);
         service = ServiceGenerator.createService(ApiService.class);
-        String token = "f9c8af02e357697c2ffdd8801d3eb0e6c16526aa";
+        String token = BuildConfig.GITHUB_TOKEN;
         CallBody = service.user(username, token);
 
         CallBody.enqueue(new Callback<UsersResponse>() {

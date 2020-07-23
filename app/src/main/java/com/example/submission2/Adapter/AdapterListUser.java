@@ -1,20 +1,19 @@
-package com.example.submission2.Adapter;
+package com.example.submission2.adapter;
 
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.submission2.DetailUser;
-import com.example.submission2.Model.UserModel;
+import com.example.submission2.model.UserModel;
 import com.example.submission2.R;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
@@ -39,13 +38,13 @@ public class AdapterListUser extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public class OriginalViewHolder extends RecyclerView.ViewHolder {
         public CircularImageView image;
         public TextView name;
-        public View lyt_parent;
+        public ConstraintLayout lyt_parent;
 
         public OriginalViewHolder(View v) {
             super(v);
-            image = (CircularImageView) v.findViewById(R.id.profil_user);
-            name = (TextView) v.findViewById(R.id.nama_user);
-            lyt_parent = (View) v.findViewById(R.id.lyt_parent);
+            image = v.findViewById(R.id.profil_user);
+            name = v.findViewById(R.id.nama_user);
+            lyt_parent = v.findViewById(R.id.lyt_parent);
         }
     }
 
@@ -70,17 +69,14 @@ public class AdapterListUser extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     .crossFade() // animasi
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(view.image);
-//            Tools.displayImageRound(ctx, view.image, p.image);
             view.lyt_parent.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-//                    if (mOnItemClickListener != null) {
-//                        mOnItemClickListener.onItemClick(view, items.get(position), position);
+
                     Intent in = new Intent(ctx, DetailUser.class);
                     in.putExtra("username", obj.login);
                     ctx.startActivity(in);
 
-//                    }
                 }
             });
         }
@@ -107,4 +103,5 @@ public class AdapterListUser extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
         notifyDataSetChanged();
     }
+
 }
